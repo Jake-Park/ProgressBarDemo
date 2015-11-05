@@ -13,8 +13,10 @@
   <div id="container"></div>
 
   <script id='template' type='text/ractive'>
-  	<div class="container" align="center">
-  		<div class="row">
+  <div class="container">
+     <div class="row">
+  	     <div class="col-sm-6 col-sm-offset-3" align="center">
+  		
 			<div id="bar1" class="progress_bars">
 			    <span class="percent">{{bars[0].value}}%</span>
 			    <div class="bar" style="width:{{bars[0].width}}%; background-color: 
@@ -25,9 +27,7 @@
                         {{/if}}
                         ;"></div>
 			</div>
-		</div>
 
-  		<div class="row">
 			<div id="bar2" class="progress_bars">
 			    <span class="percent">{{bars[1].value}}%</span>
 			    <div class="bar" style="width:{{bars[1].width}}%; background-color: 
@@ -38,9 +38,7 @@
                         {{/if}}
                         ;"></div>
 			</div>
-		</div>		
 
-  		<div class="row">
 			<div id="bar3" class="progress_bars">
 			    <span class="percent">{{bars[2].value}}%</span>
 			    <div class="bar" style="width:{{bars[2].width}}%; background-color: 
@@ -51,9 +49,7 @@
                         {{/if}}
                         ;"></div>
 			</div>
-		</div>
 
-  		<div class="row">
 			  <select value="{{selectedBar}}">
 			    {{#bars}}
 			      <option value="{{id}}">#progress{{id}}</option>
@@ -63,9 +59,9 @@
 			<button on-click="add:-10">-10</button>
 			<button on-click="add:10">+10</button>
 			<button on-click="add:25">+25</button>
-		</div>			
-
+		</div>	
 	</div>
+  </div>
   </script>  
   <script src='./lib/ractive.js'></script>
   <script>
