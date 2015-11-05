@@ -1,0 +1,17 @@
+.progress_bars {
+ width: 400px;   
+ border: 1px solid grey;
+ position: relative;
+ text-align: left;
+ margin-bottom: 2%;
+}
+
+.percent {
+ position: absolute;   
+ left: 50%;
+ margin-top: 3%;
+}
+
+.bar {
+ height: 40px;
+}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang='en-GB'>
+<head>
+  <meta charset='utf-8'>
+  <title>Progress Bars Demo</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link href="./css/style.css" rel="stylesheet"></link> 
+</head>
+
+<body>
+  <h1 align='center'>Progress Bars Demo</h1>
+
+  <div id="container"></div>
+
+  <script id='template' type='text/ractive'>
+  	<div class="container" align="center">
+  		<div class="row">
+			<div id="bar1" class="progress_bars">
+			    <span class="percent">{{bars[0].value}}%</span>
+			    <div class="bar" style="width:{{bars[0].width}}%; background-color: 
+                        {{#if bars[0].color === 1 }} 
+                            lightblue 
+                        {{elseif bars[0].color === 2 }}
+                            red
+                        {{/if}}
+                        ;"></div>
+			</div>
+		</div>
+
+  		<div class="row">
+			<div id="bar2" class="progress_bars">
+			    <span class="percent">{{bars[1].value}}%</span>
+			    <div class="bar" style="width:{{bars[1].width}}%; background-color: 
+                        {{#if bars[1].color === 1 }} 
+                            lightblue 
+                        {{elseif bars[1].color === 2 }}
+                            red
+                        {{/if}}
+                        ;"></div>
+			</div>
+		</div>		
+
+  		<div class="row">
+			<div id="bar3" class="progress_bars">
+			    <span class="percent">{{bars[2].value}}%</span>
+			    <div class="bar" style="width:{{bars[2].width}}%; background-color: 
+                        {{#if bars[2].color === 1 }} 
+                            lightblue 
+                        {{elseif bars[2].color === 2 }}
+                            red
+                        {{/if}}
+                        ;"></div>
+			</div>
+		</div>
+
+  		<div class="row">
+			  <select value="{{selectedBar}}">
+			    {{#bars}}
+			      <option value="{{id}}">#progress{{id}}</option>
+			    {{/bars}}
+			  </select>			
+			<button on-click="add:-25">-25</button>
+			<button on-click="add:-10">-10</button>
+			<button on-click="add:10">+10</button>
+			<button on-click="add:25">+25</button>
+		</div>			
+
+	</div>
+  </script>  
+  <script src='./lib/ractive.js'></script>
+  <script>
+  var selectedBar = 1;
+    var bars = [
+    { id: 1, value: 35, width: 35, color: 1 },
+       { id: 2, value: 50, width: 50, color: 1 },
+       { id: 3, value: 75, width: 75, color: 1 }
+  ];
+
+    var ractive = new Ractive({
+      el: '#container',
+      template: '#template',
+      data: { 
+        bars : bars
+      },
+      add: function(param) {
+          var idx = selectedBar-1;
+          var cur_val = bars[idx].value + param;          
+          var cur_width = cur_val;
+          if(cur_val <= 0) {
+            cur_val = 0;
+            cur_width = 0;
+          }
+          else if(cur_val > 100) {
+            bars[idx].color = 2;
+            cur_width = 100;
+          }
+          else if(cur_val <= 100) {
+            bars[idx].color = 1;
+          }
+        bars[idx].value = cur_val;
+          bars[idx].width = cur_width;
+        this.set('bars', bars)
+      }
+    });   
+
+    ractive.on('add', function(event, param) {
+      this.add(param);
+    });
+
+    ractive.observe( 'selectedBar', function ( id ) {
+    selectedBar = id;
+    });
+
+  </script>
+
+</body>
+</html>
